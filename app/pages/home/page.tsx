@@ -1,3 +1,5 @@
+'use client';
+
 import { BlogList, DisplayBlogList, NewPostButton } from "@/app/components/blogcomponents";
 import { NavigationBar } from "@/app/components/navigationcomponents"
 

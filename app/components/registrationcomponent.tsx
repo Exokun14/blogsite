@@ -9,7 +9,7 @@ export function RegisterUsername() {
   );
 }
 
-export function RegisterDisplayName() {
+export function RegisterPassword() {
 
 
   return (

@@ -1,15 +1,23 @@
 "use client";
 
+import { supabase } from "../supabaseClient";
+import { useRouter } from "next/navigation";
 import { useState } from "react"
 import { SetBlogTitle } from "./blogcomponents"
-import { RegisterDisplayName, RegisterUsername} from "./registrationcomponent";
+import { RegisterPassword, RegisterUsername} from "./registrationcomponent";
 
 export default function Registration () {
 
     const [registrationStep, setRegistrationStep] = useState (0)
     const [blogTitleData, setBlogTitleData] = useState ("")
     const [username, setUsername] = useState ("")
-    const [displayName, setDisplayName] = useState ("")
+    const [password, setPassword] = useState ("")
+    const router = useRouter()
+
+    const handleFinish = async () => {
+        await UserSignUp(username, password);
+        router.push("/pages/home");
+    };
 
 
     switch (registrationStep) {
@@ -92,7 +100,7 @@ export default function Registration () {
                 <div className="registration-box min-w-[400px] w-[25vw] min-h-[400px] h-[45vh] mt-[8vh] px-[15px] flex flex-col gap-4">
                     
                     <div className="mt-[2vh]">
-                        <RegisterDisplayName />
+                        <RegisterPassword />
                     </div>
 
                     <input
@@ -100,8 +108,8 @@ export default function Registration () {
                         placeholder="Your title goes here"
                         minLength={1}
                         maxLength={100}
-                        value={displayName}
-                        onChange={(e) => setDisplayName(e.target.value)}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
 
 
@@ -117,17 +125,9 @@ export default function Registration () {
 
                                 <button onClick={DecrementRegistration}>Prev</button>
 
-                                <form action="/pages/home">
-                                    <input type="hidden" name="blogTitle" value={blogTitleData} readOnly/>
-                                    <input type="hidden" name="" value={username} readOnly/>
-                                    <input type="hidden" name="" value={displayName} readOnly/>
-
-                                    
-                                        <button type="submit">Finish</button>
-                                    
-
-                                    
-                                </form>
+                                <button type="button" onClick={handleFinish}>
+                                Finish
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -135,6 +135,17 @@ export default function Registration () {
                 </div>
             );
     }
+
+    async function UserSignUp(email ='', password= '') {
+        
+        let { data, error } = await supabase.auth.signUp({
+            email: email,
+            password: password
+        })
+
+    }
+
+    
 
     function IncrementRegistration() {
         if (registrationStep < 0 || registrationStep < 2) {
@@ -157,7 +168,7 @@ export default function Registration () {
                 setUsername(data)
                 break
             case 2:
-                setDisplayName(data)
+                setPassword(data)
                 break
         }
         

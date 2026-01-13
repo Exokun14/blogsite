@@ -3,6 +3,9 @@
 import Image from "next/image";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { useState } from "react";
+import { useSelector, UseSelector } from "react-redux";
+import { useFetchUserBlogs } from "./blogDataSlice";
+import { RootState } from "../store";
 
 type BlogDetails = {
     id: number
@@ -38,14 +41,14 @@ export function SetImage({src}: StoredImage) {
     );
 }
 
-export function SetBlogTitle() {
-    return (
-        <div className="flex flex-col gap-4">
-            <p className="text-[24px] font-semibold">Set Blog Title</p>
-            <p className="text-[16px]">This will be the title of your first blog.</p>
-        </div>
-    );
-}
+    export function SetBlogTitle() {
+        return (
+            <div className="flex flex-col gap-4">
+                <p className="text-[24px] font-semibold">Set Blog Title</p>
+                <p className="text-[16px]">This will be the title of your first blog.</p>
+            </div>
+        );
+    }
 
 function GetBlogTitle() {
     return (
@@ -161,14 +164,6 @@ export function BlogList() {
                     </div>
 
             ))}
-        </div>
-    );
-}
-
-export function DraftPost() {
-    return (
-        <div>
-            
         </div>
     );
 }
