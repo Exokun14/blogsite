@@ -1,0 +1,18 @@
+import {createClient} from '@supabase/supabase-js';
+const supabase = createClient ()
+
+const {data, error } await = supabase auth.signup({
+    email: '',
+    password: '',
+}); 
+
+supabase.auth.onAuthStateChange((event, session) => {
+    console.log(event, session)
+});
+
+let {data: blogTitle, blogDescription} = await supabase
+    .from('blogs')
+    .select('
+        blogTitle,
+        blogDescription
+    ')

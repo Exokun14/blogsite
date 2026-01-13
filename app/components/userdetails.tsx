@@ -3,7 +3,7 @@ import { SetImage } from "./blogcomponents";
 export function SetUserProfilePicture() {
     return(
         <div>
-            <SetImage />
+            
         </div>
     );
 }
